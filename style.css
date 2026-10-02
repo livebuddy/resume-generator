@@ -1,0 +1,884 @@
+/* ========================================
+   CSS RESET & BASE
+   ======================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  height: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, Helvetica, sans-serif;
+  background: #f0f2f5;
+  color: #1a1a2e;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ========================================
+   TOP BAR
+   ======================================== */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  min-height: 56px;
+  background: #1a1a2e;
+  color: #fff;
+  flex-shrink: 0;
+  z-index: 10;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.top-bar-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 6px 0;
+}
+
+/* PDF hint text */
+.pdf-hint {
+  display: none;
+  font-size: 0.72rem;
+  color: #bfc7da;
+  max-width: 260px;
+  line-height: 1.3;
+}
+
+.btn-download-pdf-wrap:hover .pdf-hint,
+#btn-download-pdf:focus ~ .pdf-hint,
+#btn-download-pdf:hover ~ .pdf-hint {
+  display: inline;
+}
+
+/* File input label styled as button */
+.btn-file-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-file-label:focus-within {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ========================================
+   JSON ERROR BANNER
+   ======================================== */
+.json-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 24px;
+  background: #fdeaea;
+  color: #b91c1c;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-bottom: 1px solid #f0bfc3;
+}
+
+.json-error[hidden] {
+  display: none;
+}
+
+.json-error-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #b91c1c;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.json-error-close:hover {
+  background: #f9c5c5;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+.btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #4361ee;
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  background: #4361ee;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: #3a56d4;
+}
+
+.btn-danger {
+  background: #e63946;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #c1303b;
+}
+
+.btn-add {
+  background: #e8edff;
+  color: #4361ee;
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: 2px dashed #aab8ff;
+}
+
+.btn-add:hover {
+  background: #d5ddff;
+  border-color: #4361ee;
+}
+
+/* Small icon buttons for list item actions */
+.btn-icon {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.btn-icon:hover {
+  background: #f0f0f0;
+}
+
+.btn-icon:focus-visible {
+  outline: 2px solid #4361ee;
+  outline-offset: 1px;
+}
+
+.btn-icon.btn-remove {
+  color: #e63946;
+  border-color: #f0bfc3;
+}
+
+.btn-icon.btn-remove:hover {
+  background: #fdeaea;
+}
+
+/* ========================================
+   MOBILE TAB SWITCHER (hidden on desktop)
+   ======================================== */
+.mobile-tabs {
+  display: none;
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 1px solid #dfe3ec;
+}
+
+.mobile-tab {
+  flex: 1;
+  padding: 12px 0;
+  min-height: 44px;
+  border: none;
+  background: #f7f8fc;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  border-bottom: 3px solid transparent;
+}
+
+.mobile-tab:focus-visible {
+  outline: 2px solid #4361ee;
+  outline-offset: -2px;
+}
+
+.mobile-tab.active {
+  color: #4361ee;
+  background: #fff;
+  border-bottom-color: #4361ee;
+}
+
+/* ========================================
+   MAIN LAYOUT
+   ======================================== */
+.main-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: calc(100vh - 56px);
+}
+
+/* Editor Pane */
+.editor-pane {
+  width: 42%;
+  min-width: 340px;
+  overflow-y: auto;
+  padding: 20px;
+  background: #f7f8fc;
+  border-right: 1px solid #dfe3ec;
+}
+
+/* Preview Pane */
+.preview-pane {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  background: #e4e7ee;
+}
+
+/* ========================================
+   A4 PAGE
+   ======================================== */
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  background: #fff;
+  padding: 15mm;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+  font-family: 'Calibri', Arial, Helvetica, sans-serif;
+  color: #222;
+  line-height: 1.45;
+}
+
+.preview-placeholder {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  margin-top: 120px;
+  font-size: 1rem;
+}
+
+/* ========================================
+   OVERFLOW BADGE
+   ======================================== */
+.overflow-badge {
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  border: 1px solid #fcd34d;
+  flex-shrink: 0;
+}
+
+.overflow-badge[hidden] {
+  display: none;
+}
+
+/* ========================================
+   ACCORDION
+   ======================================== */
+.accordion {
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #e0e4ec;
+  overflow: hidden;
+}
+
+.accordion-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  transition: background 0.15s;
+}
+
+.accordion-header:hover {
+  background: #f5f6fa;
+}
+
+.accordion-header:focus-visible {
+  outline: 2px solid #4361ee;
+  outline-offset: -2px;
+}
+
+.accordion-icon {
+  font-size: 0.7rem;
+  color: #888;
+  transition: transform 0.2s;
+}
+
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 18px;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.accordion-body.open {
+  max-height: 5000px;
+  padding: 4px 18px 18px;
+}
+
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 5px;
+}
+
+.required {
+  color: #e63946;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #cdd2dc;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: #222;
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #4361ee;
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.char-counter {
+  display: block;
+  text-align: right;
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* Inline row for two fields side by side */
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* Checkbox row for "Present" toggle */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.checkbox-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #4361ee;
+  cursor: pointer;
+}
+
+.checkbox-row label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+/* ========================================
+   DYNAMIC LIST ITEMS
+   ======================================== */
+.list-item {
+  background: #f9fafc;
+  border: 1px solid #e2e6ef;
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.list-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.list-item-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.list-item-actions {
+  display: flex;
+  gap: 4px;
+}
+
+/* ========================================
+   RESUME PREVIEW STYLES
+   ======================================== */
+
+/* Name */
+.resume-name {
+  font-size: 20pt;
+  font-weight: 700;
+  color: #1a1a2e;
+  text-align: center;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+/* Title / Headline */
+.resume-title {
+  font-size: 11pt;
+  color: #555;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+/* Contact line */
+.resume-contact {
+  font-size: 9.5pt;
+  color: #444;
+  text-align: center;
+  margin-bottom: 14px;
+  word-break: break-word;
+}
+
+/* Section heading */
+.resume-section-heading {
+  font-size: 11pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #1a1a2e;
+  border-bottom: 1.2px solid #1a1a2e;
+  padding-bottom: 3px;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+/* Entry header row (title + date) */
+.resume-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.resume-entry-primary {
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #222;
+}
+
+.resume-entry-date {
+  font-size: 10pt;
+  color: #555;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* Entry sub line (company, location, etc.) */
+.resume-entry-sub {
+  font-size: 10pt;
+  color: #444;
+  margin-bottom: 3px;
+}
+
+/* Bullet list */
+.resume-bullets {
+  list-style: disc;
+  padding-left: 18px;
+  margin: 3px 0 8px;
+}
+
+.resume-bullets li {
+  font-size: 10.5pt;
+  color: #333;
+  margin-bottom: 2px;
+  line-height: 1.4;
+}
+
+/* Skills line */
+.resume-skill-line {
+  font-size: 10.5pt;
+  color: #333;
+  margin-bottom: 3px;
+}
+
+.resume-skill-label {
+  font-weight: 700;
+}
+
+/* Achievement line */
+.resume-achievement {
+  font-size: 10.5pt;
+  color: #333;
+  margin-bottom: 3px;
+}
+
+/* Project tech stack */
+.resume-tech {
+  font-size: 9.5pt;
+  color: #555;
+  font-style: italic;
+}
+
+/* Project link */
+.resume-link {
+  font-size: 9.5pt;
+  color: #555;
+}
+
+/* Summary */
+.resume-summary-text {
+  font-size: 10.5pt;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Entry block spacing */
+.resume-entry {
+  margin-bottom: 8px;
+}
+
+/* ========================================
+   TOAST NOTIFICATIONS
+   ======================================== */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: toast-in 0.25s ease forwards;
+}
+
+.toast.toast-out {
+  animation: toast-out 0.2s ease forwards;
+}
+
+.toast.toast-success {
+  background: #065f46;
+}
+
+.toast.toast-error {
+  background: #991b1b;
+}
+
+@keyframes toast-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* ========================================
+   SCROLLBAR STYLING
+   ======================================== */
+.editor-pane::-webkit-scrollbar,
+.preview-pane::-webkit-scrollbar {
+  width: 8px;
+}
+
+.editor-pane::-webkit-scrollbar-track,
+.preview-pane::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.editor-pane::-webkit-scrollbar-thumb {
+  background: #c5c9d6;
+  border-radius: 4px;
+}
+
+.preview-pane::-webkit-scrollbar-thumb {
+  background: #b0b5c3;
+  border-radius: 4px;
+}
+
+/* ========================================
+   PREFERS-REDUCED-MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  .accordion-body {
+    transition: none;
+  }
+
+  .toast {
+    animation-duration: 0.01ms;
+  }
+
+  .toast.toast-out {
+    animation-duration: 0.01ms;
+  }
+
+  .btn {
+    transition: none;
+  }
+
+  .accordion-icon {
+    transition: none;
+  }
+}
+
+/* ========================================
+   RESPONSIVE / MOBILE (<900px)
+   ======================================== */
+@media (max-width: 900px) {
+  /* Show mobile tab switcher */
+  .mobile-tabs {
+    display: flex;
+  }
+
+  .top-bar {
+    padding: 8px 12px;
+    min-height: 48px;
+    gap: 6px;
+  }
+
+  .top-bar-actions {
+    gap: 6px;
+  }
+
+  .app-title {
+    font-size: 1.05rem;
+  }
+
+  /* Touch-friendly buttons */
+  .btn {
+    min-height: 44px;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+  }
+
+  .btn-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .btn-add {
+    min-height: 44px;
+  }
+
+  .mobile-tab {
+    min-height: 44px;
+  }
+
+  .pdf-hint {
+    display: none !important;
+  }
+
+  .main-container {
+    flex-direction: column;
+    height: calc(100vh - 48px - 47px); /* top bar + tabs */
+  }
+
+  .editor-pane {
+    width: 100%;
+    min-width: unset;
+    flex: 1;
+    max-height: none;
+    border-right: none;
+    border-bottom: none;
+    overflow-y: auto;
+  }
+
+  .preview-pane {
+    width: 100%;
+    flex: 1;
+    padding: 16px 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .a4-page {
+    width: 100%;
+    min-height: unset;
+    padding: 10mm;
+  }
+
+  /* Tab-driven visibility */
+  .editor-pane.mobile-hidden {
+    display: none;
+  }
+
+  .preview-pane.mobile-hidden {
+    display: none;
+  }
+
+  /* Toast positioning for mobile */
+  .toast-container {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+  }
+}
+
+/* ========================================
+   PRINT STYLESHEET
+   ======================================== */
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+@media print {
+  /* Hide everything except the resume */
+  body {
+    background: #fff;
+    overflow: visible;
+    height: auto;
+  }
+
+  .top-bar,
+  .editor-pane,
+  .mobile-tabs,
+  .overflow-badge,
+  .toast-container,
+  .json-error,
+  .preview-placeholder {
+    display: none !important;
+  }
+
+  .main-container {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+
+  .preview-pane {
+    display: block;
+    padding: 0;
+    background: none;
+    overflow: visible;
+  }
+
+  .a4-page {
+    width: 100%;
+    min-height: auto;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Prevent page breaks inside entries */
+  .resume-entry {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .resume-section-heading {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+}

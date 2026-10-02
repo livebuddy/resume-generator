@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Toast container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <h1 class="app-title">Resume Generator</h1>
+    <div class="top-bar-actions">
+      <button id="btn-load-sample" class="btn btn-secondary">Load Sample</button>
+      <button id="btn-save-json" class="btn btn-secondary" aria-label="Save resume data as JSON">Save JSON</button>
+      <label class="btn btn-secondary btn-file-label" tabindex="0" role="button" aria-label="Load resume data from JSON file">
+        Load JSON
+        <input type="file" id="btn-load-json" accept=".json,application/json" class="sr-only">
+      </label>
+      <button id="btn-download-pdf" class="btn btn-secondary" aria-label="Download resume as PDF">Download PDF</button>
+      <span class="pdf-hint" id="pdf-hint">In the print dialog choose "Save as PDF", margins: Default, turn OFF headers and footers.</span>
+      <button id="btn-reset" class="btn btn-danger">Reset</button>
+    </div>
+  </header>
+
+  <!-- JSON load error banner -->
+  <div id="json-error" class="json-error" role="alert" hidden>
+    <span id="json-error-msg"></span>
+    <button type="button" class="json-error-close" id="json-error-close" aria-label="Dismiss error">&times;</button>
+  </div>
+
+  <!-- Mobile tab switcher (hidden on desktop) -->
+  <nav class="mobile-tabs" id="mobile-tabs" aria-label="View switcher">
+    <button type="button" class="mobile-tab active" data-tab="edit" aria-pressed="true">Edit</button>
+    <button type="button" class="mobile-tab" data-tab="preview" aria-pressed="false">Preview</button>
+  </nav>
+
+  <!-- Main Two-Pane Layout -->
+  <main class="main-container">
+    <!-- Left Pane: Form Editor -->
+    <aside class="editor-pane" id="editor-pane">
+      <form id="resume-form" autocomplete="off">
+
+        <!-- 1. Personal -->
+        <section class="accordion" data-section="personal">
+          <button type="button" class="accordion-header active" aria-expanded="true">
+            <span>Personal Information</span>
+            <span class="accordion-icon" aria-hidden="true">&#9650;</span>
+          </button>
+          <div class="accordion-body open">
+            <div class="form-group">
+              <label for="personal-name">Full Name <span class="required">*</span></label>
+              <input type="text" id="personal-name" data-field="personal.name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="personal-title">Job Title / Headline</label>
+              <input type="text" id="personal-title" data-field="personal.title" placeholder="Software Developer">
+            </div>
+            <div class="form-group">
+              <label for="personal-email">Email</label>
+              <input type="email" id="personal-email" data-field="personal.email" placeholder="john@example.com">
+            </div>
+            <div class="form-group">
+              <label for="personal-phone">Phone</label>
+              <input type="tel" id="personal-phone" data-field="personal.phone" placeholder="+91 98765 43210">
+            </div>
+            <div class="form-group">
+              <label for="personal-location">Location</label>
+              <input type="text" id="personal-location" data-field="personal.location" placeholder="Mumbai, India">
+            </div>
+            <div class="form-group">
+              <label for="personal-linkedin">LinkedIn</label>
+              <input type="url" id="personal-linkedin" data-field="personal.linkedin" placeholder="https://linkedin.com/in/johndoe">
+            </div>
+            <div class="form-group">
+              <label for="personal-github">GitHub</label>
+              <input type="url" id="personal-github" data-field="personal.github" placeholder="https://github.com/johndoe">
+            </div>
+            <div class="form-group">
+              <label for="personal-portfolio">Portfolio</label>
+              <input type="url" id="personal-portfolio" data-field="personal.portfolio" placeholder="https://johndoe.dev">
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Summary -->
+        <section class="accordion" data-section="summary">
+          <button type="button" class="accordion-header" aria-expanded="false">
+            <span>Summary</span>
+            <span class="accordion-icon" aria-hidden="true">&#9660;</span>
+          </button>
+          <div class="accordion-body">
+            <div class="form-group">
+              <label for="summary-text">Professional Summary</label>
+              <textarea id="summary-text" data-field="summary" rows="4" maxlength="500" placeholder="A brief professional summary..."></textarea>
+              <span class="char-counter" id="summary-counter">0 / 500</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Education -->
+        <section class="accordion" data-section="education">
+          <button type="button" class="accordion-header" aria-expanded="false">
+            <span>Education</span>
+            <span class="accordion-icon" aria-hidden="true">&#9660;</span>
+          </button>
+          <div class="accordion-body">
+            <div id="education-list" class="dynamic-list"></div>
+            <button type="button" class="btn btn-add" data-add="education">+ Add Education</button>
+          </div>
+        </section>
+
+        <!-- 4. Experience -->
+        <section class="accordion" data-section="experience">
+          <button type="button" class="accordion-header" aria-expanded="false">
+            <span>Experience</span>
+            <span class="accordion-icon" aria-hidden="true">&#9660;</span>
+          </button>
+          <div class="accordion-body">
+            <div id="experience-list" class="dynamic-list"></div>
+            <button type="button" class="btn btn-add" data-add="experience">+ Add Experience</button>
+          </div>
+        </section>
+
+        <!-- 5. Projects -->
+        <section class="accordion" data-section="projects">
+          <button type="button" class="accordion-header" aria-expanded="false">
+            <span>Projects</span>
+            <span class="accordion-icon" aria-hidden="true">&#9660;</span>
+          </button>
+          <div class="accordion-body">
+            <div id="projects-list" class="dynamic-list"></div>
+            <button type="button" class="btn btn-add" data-add="projects">+ Add Project</button>
+          </div>
+        </section>
+
+        <!-- 6. Skills -->
+        <section class="accordion" data-section="skills">
+          <button type="button" class="accordion-header" aria-expanded="false">
+            <span>Skills</span>
+            <span class="accordion-icon" aria-hidden="true">&#9660;</span>
+          </button>
+          <div class="accordion-body">
+            <div id="skills-list" class="dynamic-list"></div>
+            <button type="button" class="btn btn-add" data-add="skills">+ Add Skill Group</button>
+          </div>
+        </section>
+
+        <!-- 7. Achievements -->
+        <section class="accordion" data-section="achievements">
+          <button type="button" class="accordion-header" aria-expanded="false">
+            <span>Achievements / Certifications</span>
+            <span class="accordion-icon" aria-hidden="true">&#9660;</span>
+          </button>
+          <div class="accordion-body">
+            <div id="achievements-list" class="dynamic-list"></div>
+            <button type="button" class="btn btn-add" data-add="achievements">+ Add Achievement</button>
+          </div>
+        </section>
+
+      </form>
+    </aside>
+
+    <!-- Right Pane: Live Preview -->
+    <section class="preview-pane" id="preview-pane">
+      <!-- Overflow warning badge -->
+      <div class="overflow-badge" id="overflow-badge" hidden aria-live="polite">
+        &#9888; Content exceeds 1 page
+      </div>
+      <div class="a4-page" id="resume-preview">
+        <p class="preview-placeholder">Start typing to see your resume here...</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
